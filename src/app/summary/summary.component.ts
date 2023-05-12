@@ -13,5 +13,8 @@ export class SummaryComponent {
   constructor(private cartService: CartServiceService) {
     this.cart = this.cartService.cart;
   }
+  ngOnDestroy(){
+    this.cart.list=[];
+  }
 
 }
