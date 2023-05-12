@@ -15,6 +15,7 @@ export class SummaryComponent {
   }
   ngOnDestroy(){
     this.cart.list=[];
+    alert();
   }
 
 }
