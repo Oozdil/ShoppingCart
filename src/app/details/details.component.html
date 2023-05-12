@@ -1,0 +1,50 @@
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="main-img">
+                <img class="img-fluid" [src]="product.imageUrl" alt="ProductS">
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="main-description px-2">
+                <div class="category text-bold">
+                    Category: {{product.category}}
+                </div>
+                <div class="product-title text-bold my-3">
+                    {{product.productName}}
+                </div>
+
+
+                <div class="price-area my-4">
+                    <p class="old-price mb-1"><del>${{product.price/.8| number : '1.2-2'}}</del>
+                        <span class="old-price-discount text-danger">(20% off)</span></p>
+                    <p class="new-price text-bold mb-1">${{product.price| number : '1.2-2'}}</p>
+                    <p class="text-secondary mb-1">(Additional tax may apply on checkout)</p>
+
+                </div>
+
+
+                <div class="buttons d-flex my-5">
+                   
+                    <div class="block">
+                        <button class="shadow btn custom-btn" (click)="addTocart()">Add to cart</button>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+            <div class="product-details my-3">
+                <p class="details-title text-color mb-1">Product Details</p>
+                <p class="description">
+                    {{product.description}} </p>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+

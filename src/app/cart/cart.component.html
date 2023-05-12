@@ -1,0 +1,147 @@
+<div class="container p-3">
+    <div class="card mb-3">
+        <div class="row mb-3">
+            <div class="col-md-9 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4><b>Shopping Cart</b></h4>
+                        </div>
+
+                        <div class="col align-self-center text-right text-muted">{{cart.list.length}} items</div>
+                    </div>
+                </div>
+
+                <div class="row border-top border-bottom" *ngFor="let cartitem of cart.list">
+                    <div class="row main align-items-center">
+                        <div class="col-2 h-100">
+                            <img class="img-fluid h-100 w-100" [src]="cartitem.product.imageUrl">
+                        </div>
+                        <div class="col h-100 align-items-center">
+                            <div class="row text-muted">{{cartitem.product.category}}</div>
+                            <div class="row">{{cartitem.product.productName}}</div>
+                        </div>
+                        <div class="col h-100 align-items-center">
+                            <div class="col-md-12 text-center">
+                                <a class="btn btn-primary w-25 text-light btn-sm" (click)="dec(cartitem);">-</a>
+                                <a class="btn btn-light w-25 me-2 ms-2 btn-sm">{{cartitem.count}}</a>
+                                <a class="btn btn-primary w-25 text-light btn-sm" (click)="inc(cartitem);">+</a>
+                            </div>
+                        </div>
+                        <div class="col-2 h-100 align-items-center d-flex">
+                            &euro; {{cartitem.sum| number : '1.2-2'}}
+                            <a class="deleteIcon" (click)="delteItem(cartitem)"><i
+                                    class="fa-solid fa-trash text-danger"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+
+
+
+                <div class="row">
+                    <div class="card" *ngIf="cart.ownerName!=''">
+                        <div class="card-body">
+                            <h5 class="card-title">Delivery Info</h5>
+                            <h3>{{cart.ownerName}}</h3>
+                            Address : <p class="card-text">
+                                {{cart.ownerAddress}}
+                            </p>
+                            <a href="#" class="btn btn-primary  w-25" data-bs-toggle="modal" data-bs-target="#deliverModal">
+                                Edit Info</a>
+                        </div>
+                    </div>
+                    <div *ngIf="cart.ownerName==''">
+                        <button class="btn btn-light w-25" data-bs-toggle="modal" data-bs-target="#deliverModal">
+                            <i class="fa-solid fa-add text-danger"></i>
+                            Add delivery address
+                        </button>
+                        <h3 class="text-danger">Add delivery address</h3>
+                        
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+
+                <div class=""><a class="btn btn-primary w-25 text-light" routerLink="home">&leftarrow; Back to shop</a>
+                </div>
+
+            </div>
+            <div class="col-md-3 summary">
+                <div>
+                    <h5><b>Summary</b></h5>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12" style="padding-left:0;">ITEMS COUNT : {{cart.list.length}}</div>
+                    <div class="col-12" style="padding-left:0;">TOTAL : &euro; {{sum| number : '1.2-2'}}</div>
+                </div>
+                <form>
+                    <p>SHIPPING</p>
+                    <select #selectElem (change)="changeDelivery(selectElem.value)">
+                        <option class="text-muted" value="5">Standard-Delivery- &euro;5.00</option>
+                        <option class="text-muted" value="25">Express-Delivery- &euro;25.00</option>
+                    </select>
+                </form>
+
+                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                    <div class="col">TOTAL PRICE</div>
+                    <div class="col text-right">&euro; {{totalSum| number : '1.2-2'}}</div>
+                </div>
+                <button class="btn btn-primary" routerLink="/summary" [disabled]="summaryDisabled">CHECKOUT</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="deliverModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delivery Info</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="jobForm" >
+                <div class="mb-3">
+                  <label for="firstName" class="form-label">Full Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="fullname"
+                    formControlName="fullname"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="address" class="form-label">Address</label>
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    id="address"
+                    formControlName="address"
+                  ></textarea>
+                </div>
+                </form>
+
+        <div class="modal-footer d-grid gap-2 d-md-block">
+          <button type="button" class="btn btn-primary w-50" data-bs-dismiss="modal" 
+          (click)="save()">
+          <span *ngIf="cart.ownerName==''">Save Changes</span>
+          <span *ngIf="cart.ownerName!=''">Update Changes</span>
+        </button>
+        </div>
+    </div>
+  </div>

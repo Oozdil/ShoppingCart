@@ -1,0 +1,84 @@
+<div class="container p-3">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="text-center"><b>Summary</b></h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                        <b>Name:</b> {{cart.ownerName}}
+                    </div>
+                </div>
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                        <b> Address:</b> {{cart.ownerAddress}}
+                    </div>
+                </div>
+                <div class="row border-top border-bottom">
+                    <div class="row main align-items-center">
+                         <b>Date: {{cart.date|date:'medium'}}</b>
+                    </div>
+                </div>
+                <div class="row border-top border-bottom">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Item Name</th>
+                                <th>Item Price</th>
+                                <th>Count</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of cart.list;let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{item.product.productName}}</td>
+                                <td>{{item.product.price| number : '1.2-2'}}</td>
+                                <td>{{item.count}}</td>
+                                <td>{{item.sum| number : '1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Sum</th>
+                                <th>${{cart.sum| number : '1.2-2'}}</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Delivery</th>
+                                <th>${{cart.delivery| number : '1.2-2'}}</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Total Sum</th>
+                                <th>{{cart.sum+cart.delivery| number : '1.2-2'}}</th>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+
+
+            </div>
+
+            <div class=""><a class="btn btn-primary w-25 text-light" routerLink="/home">&leftarrow; Back to shop</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
